@@ -1,6 +1,37 @@
 import React from "react";
-import { Text, StyleSheet } from "react-native";
+import styled from "styled-components";
 import { Card } from "react-native-paper";
+import { SvgXml } from "react-native-svg";
+
+import star from "../../../../assets/star.js";
+
+const RestaurantCard = styled(Card)`
+  background-color: ${({ theme }) => theme.colors.bg.primary};
+`;
+const RestaurantCardCover = styled(Card.Cover)`
+  padding: ${({ theme }) => theme.space[3]};
+  background-color: ${({ theme }) => theme.colors.bg.primary};
+`;
+
+const Title = styled.Text`
+  font-family: ${({ theme }) => theme.fonts.heading};
+  font-size: ${({ theme }) => theme.fontSizes.body};
+  color: ${({ theme }) => theme.colors.ui.primary};
+`;
+const Address = styled.Text`
+  font-family: ${({ theme }) => theme.fonts.body};
+  font-size: ${({ theme }) => theme.fontSizes.caption};
+`;
+
+const Info = styled.View`
+  padding: ${({ theme }) => theme.space[3]};
+`;
+
+const Rating = styled.View`
+  flex-direction: row;
+  padding-top: ${({ theme }) => theme.space[2]};
+  padding-bottom: ${({ theme }) => theme.space[2]};
+`;
 
 export const RestaurantInfoCard = ({ restaurant = {} }) => {
   const {
@@ -15,18 +46,18 @@ export const RestaurantInfoCard = ({ restaurant = {} }) => {
     isClosedTemporarily,
   } = restaurant;
 
+  const ratings = Array.from({ length: Math.floor(rating) }, (_, idx) => {
+    return <SvgXml key={idx} xml={star} width={20} height={20} />;
+  });
+
   return (
-    <Card elevation={5} style={styles.card}>
-      <Card.Cover style={styles.cover} source={{ uri: photos[0] }} />
-      <Text style={styles.text}>{name}</Text>
-    </Card>
+    <RestaurantCard elevation={5}>
+      <RestaurantCardCover source={{ uri: photos[0] }} />
+      <Info>
+        <Title>{name}</Title>
+        <Rating>{ratings}</Rating>
+        <Address>{address}</Address>
+      </Info>
+    </RestaurantCard>
   );
 };
-
-const styles = StyleSheet.create({
-  card: {
-    backgroundColor: "#fff",
-  },
-  cover: { padding: 20, backgroundColor: "#fff" },
-  text: { padding: 16 },
-});

@@ -5,9 +5,10 @@ import { Spacer } from "../../../components/spacer/spacer.component";
 import { Searchbar } from "react-native-paper";
 import {
   RestaurantList,
-  SafeArea,
   SearchContainer,
 } from "./restaurants.screen.styles.js";
+
+import { SafeArea } from "../../../components/utiliy/safe-area.component";
 
 export const RestaurantsScreen = () => {
   return (

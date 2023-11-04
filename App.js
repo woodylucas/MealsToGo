@@ -17,6 +17,7 @@ import { theme } from "./src/infrastructure/theme";
 
 import { RestaurantsScreen } from "./src/features/restaurants/screens/restaurants.screen.jsx";
 import { RestaurantsProvider } from "./src/services/restaurants/restaurants.context.js";
+import { LocationProvider } from "./src/services/locations/location.context.js";
 
 const TAB_ICON = {
   Restaurants: "md-restaurant",
@@ -71,17 +72,19 @@ export default function App() {
 
   return (
     <>
-      <RestaurantsProvider>
-        <ThemeProvider theme={theme}>
-          <NavigationContainer>
-            <Tab.Navigator screenOptions={createScreenOptions}>
-              <Tab.Screen name="Restaurants" component={RestaurantsScreen} />
-              <Tab.Screen name="Settings" component={SettingsScreen} />
-              <Tab.Screen name="Map" component={MapScreen} />
-            </Tab.Navigator>
-          </NavigationContainer>
-        </ThemeProvider>
-      </RestaurantsProvider>
+      <ThemeProvider theme={theme}>
+        <LocationProvider>
+          <RestaurantsProvider>
+            <NavigationContainer>
+              <Tab.Navigator screenOptions={createScreenOptions}>
+                <Tab.Screen name="Restaurants" component={RestaurantsScreen} />
+                <Tab.Screen name="Settings" component={SettingsScreen} />
+                <Tab.Screen name="Map" component={MapScreen} />
+              </Tab.Navigator>
+            </NavigationContainer>
+          </RestaurantsProvider>
+        </LocationProvider>
+      </ThemeProvider>
       <ExpoStatusBar style="auto" />
     </>
   );

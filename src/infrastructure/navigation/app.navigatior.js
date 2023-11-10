@@ -46,7 +46,7 @@ function SettingsScreen() {
   );
 }
 
-export const Navigation = () => {
+export const AppNavigator = () => {
   return (
     <NavigationContainer>
       <Tab.Navigator screenOptions={createScreenOptions}>

@@ -11,7 +11,7 @@ import { theme } from "./src/infrastructure/theme";
 
 import { RestaurantsProvider } from "./src/services/restaurants/restaurants.context.js";
 import { LocationProvider } from "./src/services/locations/location.context.js";
-import { Navigation } from "./src/infrastructure/navigation/app.navigatior.js";
+import { Navigation } from "./src/infrastructure/navigation/index.js";
 
 export default function App() {
   const [oswaldLoaded] = useOswald({

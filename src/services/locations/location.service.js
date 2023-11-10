@@ -6,7 +6,6 @@ export const locationRequest = (searchTerm) => {
     if (!locationMock) {
       reject("not found");
     }
-
     resolve(locationMock);
   });
 };

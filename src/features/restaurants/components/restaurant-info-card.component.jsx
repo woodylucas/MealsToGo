@@ -1,6 +1,7 @@
 import React from "react";
 
 import { SvgXml } from "react-native-svg";
+import * as Crypto from "expo-crypto";
 
 import {
   RestaurantCard,
@@ -32,7 +33,9 @@ export const RestaurantInfoCard = ({ restaurant = {} }) => {
   } = restaurant;
 
   const ratings = Array.from({ length: Math.floor(rating) }, (_, idx) => {
-    return <SvgXml key={idx} xml={star} width={20} height={20} />;
+    return (
+      <SvgXml key={Crypto.randomUUID()} xml={star} width={20} height={20} />
+    );
   });
 
   return (

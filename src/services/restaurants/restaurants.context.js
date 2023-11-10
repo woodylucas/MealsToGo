@@ -5,6 +5,8 @@ import {
   restaurantsTransform,
 } from "./restaurants-service";
 
+import { useLocation } from "../../utils/hooks/locationHook";
+
 export const RestaurantsContext = createContext({
   restaurants: [],
   isLoading: false,
@@ -15,11 +17,13 @@ export const RestaurantsProvider = ({ children }) => {
   const [restaurants, setRestaurants] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const { location } = useLocation();
 
-  const retrieveRestaurants = () => {
+  const retrieveRestaurants = (loc) => {
     setIsLoading(true);
+    setRestaurants([]);
     setTimeout(() => {
-      restaurantsRequest()
+      restaurantsRequest(loc)
         .then(restaurantsTransform)
         .then((results) => {
           setIsLoading(false);
@@ -33,8 +37,12 @@ export const RestaurantsProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    retrieveRestaurants();
-  }, []);
+    if (location) {
+      const locationString = `${location.lat},${location.lng}`;
+      console.log(locationString);
+      retrieveRestaurants(locationString);
+    }
+  }, [location]);
 
   const value = useMemo(() => {
     return {

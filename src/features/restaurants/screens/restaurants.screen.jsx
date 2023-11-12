@@ -1,3 +1,4 @@
+import { TouchableOpacity } from "react-native";
 import { RestaurantInfoCard } from "../components/restaurant-info-card.component";
 import { Search } from "../components/search.component.jsx";
 
@@ -13,9 +14,8 @@ import { SafeArea } from "../../../components/utiliy/safe-area.component";
 import { useRestaurants } from "../../../utils/hooks/restaurantHooks";
 import { MD2Colors } from "react-native-paper";
 
-export const RestaurantsScreen = () => {
-  const { restaurants, isLoading, error } = useRestaurants();
-
+export const RestaurantsScreen = ({ navigation }) => {
+  const { restaurants, isLoading } = useRestaurants();
   return (
     <SafeArea>
       {isLoading && (
@@ -28,9 +28,15 @@ export const RestaurantsScreen = () => {
         data={restaurants}
         renderItem={({ item }) => {
           return (
-            <Spacer position="bottom" size="large">
-              <RestaurantInfoCard restaurant={item} />
-            </Spacer>
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate("RestaurantDetail", { restaurant: item })
+              }
+            >
+              <Spacer position="bottom" size="large">
+                <RestaurantInfoCard restaurant={item} />
+              </Spacer>
+            </TouchableOpacity>
           );
         }}
         keyExtractor={(item) => item.name}
